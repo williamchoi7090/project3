@@ -8,6 +8,7 @@ body {
     backdrop-filter: blur(2px);
 }
 .welcome {
+    color: #4caf50;
     position: absolute;
     top: 25%;
     left: 35%;
@@ -20,7 +21,7 @@ body {
     width: 250px;
     border: solid 2px black;
     border-radius: 20px;
-    background-color: black;
+    background-color: grey;
     padding: 10px;
 }
 .register {
@@ -29,9 +30,9 @@ body {
     top: 35%;
     left: 40%;
     width: 250px;
-    border: solid 2px white;
+    border: solid 2px black;
     border-radius: 20px;
-    background-color: black;
+    background-color: grey;
     padding: 10px;
 }
 .error {
@@ -40,9 +41,10 @@ body {
     top: 40%;
     left: 40%;
     width: 250px;
+    color: #4caf50;
     border: solid 2px black;
     border-radius: 20px;
-    background-color: black;
+    background-color: grey;
     padding: 10px;
 }
 .intro {
@@ -53,7 +55,7 @@ body {
     width: 250px;
     border: solid 2px black;
     border-radius: 20px;
-    background-color: black;
+    background-color: grey;
     padding: 10px;
 }
 .intro2 {
@@ -64,36 +66,28 @@ body {
     width: 250px;
     border: solid 2px black;
     border-radius: 20px;
-    background-color: black;
-    padding: 10px;
-}
-.intro3 {
-    display: block;
-    width: 250px;
-    border: solid 2px black;
-    border-radius: 20px;
-    background-color: black;
+    background-color: grey;
     padding: 10px;
 }
 a:link {
-    color: white;
+    color: yellow;
 }
 
 a:visited {
-    color: white;
+    color: yellow;
 }
 input[type="submit"] {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    background-color: rgba(0,0,0,0.8);
+    background-color: grey;
     color: white;
     font-size: 120%;
     font-weight: bold;
 }
 
 input[type="submit"]:hover {
-    background: black;
+    background: grey;
     color: white;
     transform: scale(1.3);
 }
@@ -103,11 +97,9 @@ input[type="submit"]:hover {
     top: 35%;
     left: 40%;
     width: 280px;
+    color: #4caf50;
     border: solid 2px black;
     border-radius: 20px;
     background-color: white;
     padding: 10px;
-}
-.username {
-    color: white;
 }
