@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Declare variables
     let isRunning = false;
     let generation = 0;
+    let score = 0;
 
     // Event Listener for each button
     const explanationBtn = document.getElementById("explain-btn");
@@ -27,8 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     resetBtn.addEventListener("click", () => {
         // Reset everything.
-        score = generation;
-        window.location.href = "index.php?score=" + score;
         cells.forEach((cell) => {
             cell.classList.remove("alive");
         });
@@ -37,16 +36,23 @@ document.addEventListener("DOMContentLoaded", function () {
         if (typeof gameInterval !== "undefined") {
             clearInterval(gameInterval);
         }
+        timeRemaining = 59;
+        timeUp = false;
+        const scoreInfo = document.getElementById("score");
+        score = 0;
+        scoreInfo.textContent = score;
+        timerElement.textContent = `1:00`;
         generation = 0;
+        const generationInfo = document.getElementById("generation-info");
         generationInfo.textContent = `Generation: ${generation}`;
         patternSelect.selectedIndex = 0;
         patternSelect.disabled = false;
         increase1.disabled = false;
         increase23.disabled = false;
     });
+
     // Start, Stop button
     const startBtn = document.querySelector("#start-btn");
-    const generationInfo = document.querySelector(".info");
 
     document.getElementById("home").addEventListener("click", function () {
         window.location.href = "intro.html";
@@ -79,14 +85,6 @@ document.addEventListener("DOMContentLoaded", function () {
         for (k = 0; k < 23; k++) {
             gameLogic();
         }
-    });
-
-    // Make toggle alive, dead when user click
-    const allCell = document.querySelectorAll(".cell");
-    allCell.forEach((smallCell) => {
-        smallCell.addEventListener("click", () => {
-            smallCell.classList.toggle("alive");
-        });
     });
 
     // To make all necessary cells of the selected pattern alive
@@ -213,17 +211,22 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    let score = 0;
     // Main game Logic start here
     function gameLogic() {
-        const aliveElements = document.querySelectorAll('.alive');
-        if (aliveElements.length === 0 ) {
-            console.log('No alive cells found. Stopping game.');
-            score = generation;
-            window.location.href = "index.php?score=" + score;
-            return;
+        if (timeUp === false) {
+            const aliveElements = document.querySelectorAll(".alive");
+            // Add score for each alive cell
+            score += aliveElements.length;
+            const scoreInfo = document.getElementById("score");
+            scoreInfo.textContent = score;
+        } else if (timeUp === true) {
+            updateScore(targetName, score);
         }
+        const generationInfo = document.getElementById("generation-info");
         generation++;
+        if (generation % 2 === 0) {
+            updateTimer();
+        }
         generationInfo.textContent = `Generation: ${generation}`;
         // Get all elements with the .alive class
         const allElements = document.querySelectorAll("td");
@@ -249,14 +252,14 @@ document.addEventListener("DOMContentLoaded", function () {
             toggleId.classList.add("alive");
         }
 
-        let lazy = [];
-        allElements.forEach((element) => {
-            if (element.classList.contains("alive")) {
-                lazy.push(element.id);
-            }
-        });
+        // let lazy = [];
+        // allElements.forEach((element) => {
+        //   if (element.classList.contains("alive")) {
+        //     lazy.push(element.id);
+        //   }
+        // });
 
-        console.log(lazy);
+        // console.log(lazy);
     }
 
     // Check 8 cells around it. and determine if it is alive in next generation
@@ -306,4 +309,97 @@ document.addEventListener("DOMContentLoaded", function () {
             rebornInNextGeneration.push(id);
         }
     }
+
+    // Timer to record score in 1 mmin
+    let timeRemaining = 59;
+    let timeUp = false;
+    const timerElement = document.getElementById("timer");
+
+    function updateTimer() {
+        const minutes = Math.floor(timeRemaining / 60);
+        const seconds = timeRemaining % 60;
+
+        timerElement.textContent = `${minutes.toString().padStart(1, "0")}:${seconds
+            .toString()
+            .padStart(2, "0")}`;
+
+        if (timeRemaining === 0 && timeUp === false) {
+            timeUp = true;
+        } else if (timeUp === true) {
+            timeRemaining = 0;
+        } else {
+            timeRemaining--;
+        }
+    }
+
+    // API connect with php and score.txt
+    function updateScore(name, score) {
+        // Prepare the data to be sent to the server
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("score", score);
+
+        // Send a POST request to the updateScore.php script
+        fetch("updateScore.php", {
+            method: "POST",
+            body: formData,
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.text();
+            })
+            .then((data) => { })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+    }
+
+    // Drag function
+    let isDragging = false;
+
+    function onMouseDown(e) {
+        if (e.target.classList.contains("cell")) {
+            isDragging = true;
+            if (e.button === 0) {
+                // Left mouse button
+                e.target.classList.add("alive");
+            } else if (e.button === 2) {
+                // Right mouse button
+                e.target.classList.remove("alive");
+            }
+        }
+    }
+
+    function onMouseUp() {
+        isDragging = false;
+    }
+
+    function onMouseMove(e) {
+        if (isDragging && e.target.classList.contains("cell")) {
+            if (e.buttons === 1) {
+                // Left mouse button
+                e.target.classList.add("alive");
+            } else if (e.buttons === 2) {
+                // Right mouse button
+                e.target.classList.remove("alive");
+            }
+        }
+    }
+
+    cells.forEach((cell) => {
+        cell.addEventListener("mousedown", onMouseDown);
+        cell.addEventListener("mouseup", onMouseUp);
+        cell.addEventListener("mousemove", onMouseMove);
+    });
+
+    document.addEventListener("mouseup", onMouseUp);
+
+    // Prevent the context menu from showing on right-click
+    document.addEventListener("contextmenu", (e) => {
+        if (e.target.classList.contains("cell")) {
+            e.preventDefault();
+        }
+    });
 });

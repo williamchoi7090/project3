@@ -14,5 +14,8 @@
 		<div class= "score2">
 			<pre><h3><?=$filecontents?></h3></pre>
 		</div>
+		<div class= "score2">
+			<h3><a href="intro.html">Back to homepage!</a></h3>
+		</div>
     </body>
 </html>

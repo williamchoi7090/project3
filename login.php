@@ -11,12 +11,12 @@
         <form method="post" action="login-submit.php">
             <div class= "mine">
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required></br>
+            <input type="text" id="username" name="username" required>
 
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required></br>
+            <input type="password" id="password" name="password" required>
 
-            <input type="submit" value="Login">
+            <input class="submit-login" type="submit" value="Login">
             </div>
         </form>
         <div class="intro2">

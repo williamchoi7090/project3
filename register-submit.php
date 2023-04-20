@@ -13,6 +13,10 @@
 			$text = $name.','.$username.','.$password."\n";
 			fwrite($file, $text);
 			fclose($file);
+			$file = fopen('score.txt', 'a');
+			$text = $name . ": 0,\n";
+			fwrite($file, $text);
+			fclose($file);		
 			header('Location: login.php');
 		?>
 	</body>

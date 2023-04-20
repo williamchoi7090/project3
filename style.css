@@ -136,6 +136,12 @@ select {
     font-weight: bold;
     margin: 0;
 }
+
+    .info p {
+        margin: 0;
+        margin-bottom: 10px;
+    }
+
 .name {
     color: red;
     position: absolute;
@@ -144,6 +150,7 @@ select {
     font-weight: bold;
     margin: 0;
 }
+
 .score {
     color: red;
     position: absolute;

@@ -6,10 +6,8 @@
 	</head>
 	<body>
         <?php
+        session_start();
             $file = fopen('score.txt', 'a');
-            $text = PHP_EOL;
-            fwrite($file, $text);
-            fclose($file);
             $username = $_POST["username"];
             $password = $_POST["password"];
 
@@ -21,7 +19,8 @@
                 $userinfo = explode(",", $user);
 
                 if ($username == $userinfo[1] && $password == $userinfo[2]) {
-                    header('Location: index.php?name=' . $userinfo[0]);
+                    $_SESSION['name']=$userinfo[0];
+                    header('Location: index.php');
                     exit();
                 }
             }

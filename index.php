@@ -1,6 +1,10 @@
 <?php
     session_start();
-    $_SESSION['name'] = $_GET['name'];
+    if (!isset($_SESSION['name'])){
+        header('Location: login.php');
+        session_destroy();
+        exit();
+    } 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +20,18 @@
     <h1 style="margin: 5px auto; color: #eee; text-align: center">
         Game Of Life!
     </h1>
-    <p class="info">Generation: 0</p>
+    <div class="info">
+        <?php
+            $name = $_SESSION['name'];
+            echo '<p>Welcome, ' . $name . '!</p>';
+        ?>
+        <p id="generation-info">Generation: 0</p>
+        <p>Score: <span id="score">0</span></p>
+        <p>Timer: <span id="timer">1:00</span></p>
+    </div>
+    <script>
+        let targetName = "<?php echo $name; ?>";
+    </script>
     <table>
         <tbody>
             <tr>
@@ -512,13 +527,7 @@
                 Any dead cell with exactly three live neighbors becomes a live cell.
             </li>
             <li>
-                The score is the amount of generations at least one cell is alive.
-            </li>
-            <li>
-                A single person can have mutiple scores before exiting.
-            </li>
-            <li>
-                If reset is clicked for a continous generation then the generation at the time reset is clicked is the score.
+                Score: You will accumulate points based on the number of living cells in each generation over a 1-minute interval (which equates to 120 generations). The more cells that remain alive in each generation, the higher your overall score will be.
             </li>
         </ul>
         <p>
@@ -532,28 +541,5 @@
                rel="noopener">Wikipedia</a>.
         </p>
     </div>
-    <div class="name">
-        <?php
-session_start();
-$name = $_SESSION['name'];
-$score = $_GET['score'];
-echo 'Welcome ' . $name . '!<br><br><br>';
-echo 'Score is: ' . $score;
-        ?>
-    </div>
-    <?php
-        if ($name = $_SESSION['name']){
-            $file = fopen('score.txt', 'a');
-            $text = $name.':';
-            fwrite($file, $text);
-            fclose($file);
-        }
-        else{
-            $file = fopen('score.txt', 'a');
-            $text = ' '.$score;
-            fwrite($file, $text);
-            fclose($file);
-        }
-	?>
 </body>
 </html>
