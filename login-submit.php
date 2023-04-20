@@ -6,8 +6,12 @@
 	</head>
 	<body>
         <?php
-            $username = $_GET["username"];
-            $password = $_GET["password"];
+            $file = fopen('score.txt', 'a');
+            $text = PHP_EOL;
+            fwrite($file, $text);
+            fclose($file);
+            $username = $_POST["username"];
+            $password = $_POST["password"];
 
             $file = "file.txt";
             $users = file($file);
@@ -17,7 +21,7 @@
                 $userinfo = explode(",", $user);
 
                 if ($username == $userinfo[1] && $password == $userinfo[2]) {
-                    header('Location: https://codd.cs.gsu.edu/~tnguyen565/WebPro/PW/PW3/');
+                    header('Location: index.php?name=' . $userinfo[0]);
                     exit();
                 }
             }

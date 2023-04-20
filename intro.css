@@ -12,6 +12,7 @@ body {
     position: absolute;
     top: 20%;
     left: 35%;
+    text-align: center;
 }
 .register {
     display: block;
@@ -23,6 +24,7 @@ body {
     border-radius: 20px;
     background-color: grey;
     padding: 10px;
+    text-align: center;
 }
 .login {
     display: block;
@@ -34,6 +36,7 @@ body {
     border-radius: 20px;
     background-color: grey;
     padding: 10px;
+    text-align: center;
 }
 .score {
     display: block;
@@ -45,6 +48,7 @@ body {
     border-radius: 20px;
     background-color: grey;
     padding: 10px;
+    text-align: center;
 }
 .score2 {
     display: block;
@@ -69,6 +73,7 @@ body {
     border-radius: 20px;
     background-color: grey;
     padding: 10px;
+    text-align: center;
 }
 .intro {
     display: block;
@@ -80,6 +85,7 @@ body {
     border-radius: 20px;
     background-color: grey;
     padding: 10px;
+    text-align: center;
 }
 .intro2 {
     display: block;
@@ -91,6 +97,7 @@ body {
     border-radius: 20px;
     background-color: grey;
     padding: 10px;
+    text-align: center;
 }
 a:link {
     color: yellow;
@@ -125,4 +132,5 @@ input[type="submit"]:hover {
     border-radius: 20px;
     background-color: white;
     padding: 10px;
+    text-align: center;
 }

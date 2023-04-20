@@ -5,7 +5,10 @@
 		<link href="intro.css" rel="stylesheet">
 	</head>
 	<body>
-        <form method="get" action="login-submit.php">
+    <?php
+        session_destroy();
+    ?>  
+        <form method="post" action="login-submit.php">
             <div class= "mine">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required></br>
