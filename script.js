@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const startBtn = document.querySelector("#start-btn");
 
     document.getElementById("home").addEventListener("click", function () {
-        window.location.href = "intro.html";
+        window.location.href = "logout.php";
     });
 
     startBtn.addEventListener("click", function () {

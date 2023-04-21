@@ -496,11 +496,9 @@
             <option value="Pulsar">The Pulsar</option>
             <option value="Glider">Glider</option>
             <option value="LightweightSpaceship">Lightweight Spaceship</option>
-            <option value="GosperGliderGun">Gosper Glider Gun</option>
             <option value="Block">The Block</option>
             <option value="Boat">The Boat</option>
             <option value="Loaf">The Loaf</option>
-            <option value="Beehive">The Beehive</option>
         </select>
     </div>
     <div class="explanation">
